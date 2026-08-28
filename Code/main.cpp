@@ -1,6 +1,7 @@
 #include "raylib.h"
 #include "actor.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
 
 
@@ -20,8 +21,14 @@ int main() {
         BeginDrawing();
 
         ClearBackground(BLACK);
+        player.rotation = atan2(
+        -(GetMousePosition().x -player.pos.x),
+        GetMousePosition().y -player.pos.y)
+        *(180/M_PI);
+
 
         player.draw();
+
 
         EndDrawing();
     }
