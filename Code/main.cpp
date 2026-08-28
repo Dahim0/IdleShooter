@@ -7,13 +7,13 @@ using namespace std;
 
 int main() {
 
-    InitWindow(800, 500, "Game"); //Setting up the game windows size and name
-    SetTargetFPS(60); //Max fps
+    InitWindow(800, 500, "IdleShooter"); 
+    SetTargetFPS(60);
 
     actor player({400,250},{0,0},90,"Assets/player.png");
 
     
-    while (!WindowShouldClose()) { //Main game loop
+    while (!WindowShouldClose()) {
         player.move();
 
 
