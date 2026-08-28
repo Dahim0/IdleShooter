@@ -1,6 +1,2 @@
 #!/bin/bash
-clang++ Code/*.cpp -o game -lraylib \
-  -framework OpenGL \
-  -framework Cocoa \
-  -framework IOKit \
-  -framework CoreVideo
+clang++ $(find Code -name "*.cpp") -o game -I. -lraylib
