@@ -20,7 +20,15 @@ void actor::draw(){
     );
 };
 
-actor::actor( Vector2 POS, Vector2 VEL,int ROTATION, std::string TEXTURE_PATH){
+
+actor::actor(){
+    rotation = 0;
+    pos = {0,0};
+    vel = {0,0};
+    path = "Assets/enemies.png";
+}
+
+actor::actor( Vector2 POS , Vector2 VEL ,int ROTATION , std::string TEXTURE_PATH ){
     rotation = ROTATION;
     pos = POS;
     vel = VEL;

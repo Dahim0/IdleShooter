@@ -1,25 +1,26 @@
-#include "raylib.h"
 #include "General.h"
-#include <cmath>
+
 using namespace std;
 
-
+int target_fps = 60;
 
 int main() {
 
     InitWindow(800, 500, "IdleShooter"); 
-    SetTargetFPS(60);
+    SetTargetFPS(target_fps);
 
 
     
     while (!WindowShouldClose()) {
         //updates
         player_update();
+        enemies_update();
 
         BeginDrawing();
 
         ClearBackground(BLACK);
         player_draw();
+        enemies_draw();
 
         EndDrawing();
 
