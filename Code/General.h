@@ -6,6 +6,10 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+//personal addons
+#include "Code/Addons/Dahim-qol/DahimQol.h"
+#include "Code/Addons/Dahim-actors/actor.h"
+
 using namespace std;
 
 //system
@@ -13,19 +17,7 @@ extern int target_fps;
 
 
 
-//actor
-class actor{
-    public:
-        int rotation;
-        Vector2 pos;
-        Vector2 vel;
-        std::string path;
 
-        void move();
-        void draw();
-        actor();
-        actor( Vector2 POS, Vector2 VEL,int ROTATION, std::string TEXTURE_PATH);
-};
 
 //player
 extern actor player;

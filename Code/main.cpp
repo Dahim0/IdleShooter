@@ -4,6 +4,7 @@ using namespace std;
 
 int target_fps = 60;
 
+
 int main() {
 
     InitWindow(800, 500, "IdleShooter"); 
@@ -12,7 +13,6 @@ int main() {
 
     
     while (!WindowShouldClose()) {
-        //updates
         player_update();
         enemies_update();
 
@@ -21,6 +21,7 @@ int main() {
         ClearBackground(BLACK);
         player_draw();
         enemies_draw();
+        DrawText(to_string(randi(100,101)).c_str(),0,0,10,WHITE);
 
         EndDrawing();
 

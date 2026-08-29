@@ -12,7 +12,6 @@ float diffuclty = 1.0f;
 
 
 void spawn_enemie(float diffuclty){
-    
     enemies.push_back(actor());
 }
 
