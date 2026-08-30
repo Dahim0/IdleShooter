@@ -36,8 +36,7 @@ void spawn_enemie(float diffuclty){
     }
 
 
-    
-    enemies.push_back(actor(starting_pos,{0,0},0,"Assets/enemies.png"));
+    enemies.push_back(actor(starting_pos,{0,0},0,1,"Assets/enemies.png",(float)randi(5,20)/10));
 }
 
 

@@ -3,7 +3,7 @@
 
 
 
-actor player({400,250},{0,0},0,"Assets/player.png");
+actor player({400,250},{0,0},0,1,"Assets/player.png",1.0f);
 
 void player_update(){
     player.move();
