@@ -15,10 +15,6 @@ using namespace std;
 //system
 extern int target_fps;
 
-
-
-
-
 //player
 extern actor player;
 void player_update();

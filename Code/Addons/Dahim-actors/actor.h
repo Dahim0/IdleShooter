@@ -3,7 +3,7 @@
 using namespace std;
 
 
-//actor
+/// @brief An actor class with velocity position sprite and rotation
 class actor{
     public:
         int rotation;
@@ -11,8 +11,15 @@ class actor{
         Vector2 vel;
         string path;
 
+        /// @brief Add the actor velocity to its position
         void move();
+        /// @brief Draws the acotr using its path texture and its position
         void draw();
         actor();
+        /// @brief 
+        /// @param pos 2D position ex: {0,0}
+        /// @param vel 2D velocity ex: {1,0}
+        /// @param rotation Rotation in degrees
+        /// @param path Path to the sprite ex: "Assets/player.png"
         actor( Vector2 POS, Vector2 VEL,int ROTATION, std::string TEXTURE_PATH);
 };
