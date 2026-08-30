@@ -21,7 +21,7 @@ int main() {
         ClearBackground(BLACK);
         player_draw();
         enemies_draw();
-        DrawText(to_string(randi(100,101)).c_str(),0,0,10,WHITE);
+        
 
         EndDrawing();
 
