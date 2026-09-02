@@ -14,7 +14,7 @@ class actor{
 
         float width;
         float height;
-        float scale;
+        float scale= 1.0f;
 
         /// @brief Add the actor velocity to its position
         void move();
@@ -28,5 +28,5 @@ class actor{
         /// @param HP Actor Health
         /// @param Scale Multiply the actor scale
         /// @param path Path to the sprite ex: "Assets/player.png"
-        actor( Vector2 POS, Vector2 VEL,int ROTATION,int HP, std::string TEXTURE_PATH, float SCALE);
+        actor( Vector2 POS, Vector2 VEL,int ROTATION,int HP, std::string TEXTURE_PATH);
 };

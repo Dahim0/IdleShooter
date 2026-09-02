@@ -21,8 +21,14 @@ void player_update();
 void player_draw();
 
 //enemies
+class enemie : public actor {
+public:
+    int money;
+    Color modulate;
+    enemie( Vector2 POS, Vector2 VEL,int HP, int MONEY, float SCALE,std::string TEXTURE_PATH,Color MODULATE);
+};
 extern float diffuclty;
-extern vector<actor> enemies;
+extern vector<enemie> enemies;
 void enemies_update();
 void enemies_draw();
 void spawn_enemie(float diffuclty);

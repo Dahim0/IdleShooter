@@ -3,7 +3,7 @@
 
 
 
-vector<actor> enemies;
+vector<enemie> enemies;
 
 float timer = 3* target_fps;
 float time_left = timer;
@@ -11,6 +11,16 @@ float time_left = timer;
 float diffuclty = 1.0f;
 float speed = 0.001f;
 
+
+enemie::enemie( Vector2 POS, Vector2 VEL,int HP, int MONEY, float SCALE,std::string TEXTURE_PATH,Color MODULATE){
+    scale = SCALE;
+    pos = POS;
+    vel = VEL;
+    path = TEXTURE_PATH;
+    hp = HP;
+    money = MONEY;
+    modulate = MODULATE;
+}
 
 
 void spawn_enemie(float diffuclty){
@@ -36,7 +46,7 @@ void spawn_enemie(float diffuclty){
     }
 
 
-    enemies.push_back(actor(starting_pos,{0,0},0,1,"Assets/enemies.png",(float)randi(5,20)/10));
+    enemies.push_back(enemie(starting_pos,{0,0},/*hp*/1,/*money*/0,/*scale*/1.0f,"Assets/enemies.png",WHITE));
 }
 
 
@@ -48,7 +58,7 @@ void enemies_update(){
         spawn_enemie(diffuclty);
         time_left = timer;
     }
-    for (actor& i: enemies) {
+    for (enemie& i: enemies) {
         i.pos.x = lerp(i.pos.x,player.pos.x,speed);
         i.pos.y = lerp(i.pos.y,player.pos.y,speed);
     }
