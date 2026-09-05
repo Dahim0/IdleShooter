@@ -18,8 +18,8 @@ void actor::draw(){
         (Rectangle) {pos.x,pos.y,(float)textureRect.width*scale,(float)textureRect.height*scale},
         TextureOrigin,rotation,WHITE
     );
-    width = (float)textureRect.width;
-    height = (float)textureRect.height;
+    width = textureRect.width;
+    height = textureRect.height;
 };
 
 

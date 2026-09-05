@@ -21,7 +21,7 @@ int main() {
         ClearBackground(BLACK);
         player_draw();
         enemies_draw();
-        
+
 
         EndDrawing();
 

@@ -19,6 +19,13 @@ extern int target_fps;
 extern actor player;
 void player_update();
 void player_draw();
+//bullets
+extern vector<actor> bullets;
+extern float b_cooldown;         
+extern float b_size;
+extern float b_dmg;
+extern float b_speed;  
+
 
 //enemies
 class enemie : public actor {

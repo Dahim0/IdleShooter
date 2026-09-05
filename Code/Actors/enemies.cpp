@@ -67,8 +67,7 @@ void enemies_update(){
 
 
 void enemies_draw(){
-    for (actor i: enemies) {
+    for (actor& i: enemies) {
       	i.draw();
-        
     }
 }
