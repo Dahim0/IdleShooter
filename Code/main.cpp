@@ -3,7 +3,7 @@
 using namespace std;
 
 int target_fps = 60;
-
+float money = 0.0f;
 
 int main() {
 
@@ -13,8 +13,7 @@ int main() {
 
     
     while (!WindowShouldClose()) {
-        player_update();
-        enemies_update();
+
 
         BeginDrawing();
 
@@ -22,8 +21,10 @@ int main() {
         player_draw();
         enemies_draw();
 
-
         EndDrawing();
+
+        player_update();
+        enemies_update();
 
     }
 

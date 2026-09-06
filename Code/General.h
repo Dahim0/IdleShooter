@@ -14,6 +14,7 @@ using namespace std;
 
 //system
 extern int target_fps;
+extern float money;
 
 //player
 extern actor player;
@@ -31,7 +32,15 @@ extern float b_speed;
 class enemie : public actor {
 public:
     int money;
-    Color modulate;
+    float hit_anim = 0.0f;
+    float die_anim = -1.0f;
+    /// @brief 
+    /// @param dmg Damage received
+    /// @param v_index Victim index
+    /// @param a_index Attacker index
+    void damage(float dmg, int v_index, int a_index);
+    void die(int index);
+    void animate();
     enemie( Vector2 POS, Vector2 VEL,int HP, int MONEY, float SCALE,std::string TEXTURE_PATH,Color MODULATE);
 };
 extern float diffuclty;

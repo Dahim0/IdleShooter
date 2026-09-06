@@ -8,6 +8,7 @@ class actor{
     public:
         int rotation;
         int hp;
+        bool dead = false;
         Vector2 pos;
         Vector2 vel;
         string path;
@@ -15,6 +16,8 @@ class actor{
         float width;
         float height;
         float scale= 1.0f;
+
+        Color modulate = WHITE;
 
         /// @brief Add the actor velocity to its position
         void move();

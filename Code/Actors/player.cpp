@@ -37,8 +37,9 @@ void player_update(){
         }
         for (int u = 0; u < enemies.size(); u++) { // enemies
             if ( distance_v2(bullets[i].pos,enemies[u].pos) < (bullets[i].width + enemies[u].width)/2){
+                enemies[u].damage(b_dmg,u,i);
                 bullets.erase(bullets.begin() + i);
-                enemies.erase(enemies.begin() + u);
+                
             }
         }
 

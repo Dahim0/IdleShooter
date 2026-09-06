@@ -16,7 +16,7 @@ void actor::draw(){
     DrawTexturePro(
         texture,textureRect,
         (Rectangle) {pos.x,pos.y,(float)textureRect.width*scale,(float)textureRect.height*scale},
-        TextureOrigin,rotation,WHITE
+        TextureOrigin,rotation,modulate
     );
     width = textureRect.width;
     height = textureRect.height;

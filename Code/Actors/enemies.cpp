@@ -21,6 +21,27 @@ enemie::enemie( Vector2 POS, Vector2 VEL,int HP, int MONEY, float SCALE,std::str
     money = MONEY;
     modulate = MODULATE;
 }
+void enemie::damage(float dmg, int v_index, int a_index){
+    hit_anim = 0.1f*target_fps;
+    animate();
+    draw();
+    pos = add_v2(pos,bullets[a_index].vel);
+    hp -= dmg;
+    if (hp <= 0){
+        die(v_index);
+    }
+}
+void enemie::die(int index){
+    enemies.erase(enemies.begin() + index);
+}
+void enemie::animate(){
+    if(hit_anim > 0.0f){
+        hit_anim --;
+        modulate = RED;
+    }else{
+        modulate = WHITE;
+    }
+}
 
 
 void spawn_enemie(float diffuclty){
@@ -46,9 +67,8 @@ void spawn_enemie(float diffuclty){
     }
 
 
-    enemies.push_back(enemie(starting_pos,{0,0},/*hp*/1,/*money*/0,/*scale*/1.0f,"Assets/enemies.png",WHITE));
+    enemies.push_back(enemie(starting_pos,{0,0},/*hp*/5,/*money*/0,/*scale*/1.0f,"Assets/enemies.png",WHITE));
 }
-
 
 void enemies_update(){
     if (time_left > 0.0f){
@@ -61,13 +81,13 @@ void enemies_update(){
     for (enemie& i: enemies) {
         i.pos.x = lerp(i.pos.x,player.pos.x,speed);
         i.pos.y = lerp(i.pos.y,player.pos.y,speed);
+        
     }
 
 }
-
-
 void enemies_draw(){
-    for (actor& i: enemies) {
+    for (enemie& i: enemies) {
       	i.draw();
+        i.animate();
     }
 }
