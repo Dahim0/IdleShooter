@@ -31,9 +31,10 @@ extern float b_speed;
 //enemies
 class enemie : public actor {
 public:
+    int id;
     int money;
     float hit_anim = 0.0f;
-    float die_anim = -1.0f;
+    float die_anim = 0.0f;
     /// @brief 
     /// @param dmg Damage received
     /// @param v_index Victim index
@@ -41,6 +42,7 @@ public:
     void damage(float dmg, int v_index, int a_index);
     void die(int index);
     void animate();
+    enemie();
     enemie( Vector2 POS, Vector2 VEL,int HP, int MONEY, float SCALE,std::string TEXTURE_PATH,Color MODULATE);
 };
 extern float diffuclty;
