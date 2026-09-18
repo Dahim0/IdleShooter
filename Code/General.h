@@ -40,7 +40,7 @@ public:
     /// @param v_index Victim index
     /// @param a_index Attacker index
     void damage(float dmg, int v_index, int a_index);
-    void die(int index);
+    
     void animate();
     enemie();
     enemie( Vector2 POS, Vector2 VEL,int HP, int MONEY, float SCALE,std::string TEXTURE_PATH,Color MODULATE);
@@ -50,5 +50,6 @@ extern vector<enemie> enemies;
 void enemies_update();
 void enemies_draw();
 void spawn_enemie(float diffuclty);
+void clean_up();
 
 #endif

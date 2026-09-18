@@ -11,14 +11,15 @@ float speed = 0.001f;
 int current_id = 0;
 
 /* #region  Custom Enemie Class */
-int GetIndexFromId(int id){
-    for (int i = bullets.size(); i > 0; i--){
-        if (enemies[i].id == id){
-            return i;
-            break;
+int GetIndexFromId(int id) {
+    for (size_t i = 0; i < enemies.size(); i++) {
+        if (enemies[i].id == id) {
+            return static_cast<int>(i);
         }
     }
+    return -1; // Return -1 for "not found" instead of NAN (NAN is for floating-point numbers)
 }
+
 
 enemie::enemie()
 {
@@ -55,15 +56,15 @@ void enemie::damage(float dmg, int v_index, int a_index)
     }
     }
 }
-void enemie::die(int index)
+// remove enemies if too small
+void clean_up()
 {
-    try{
-    enemies.erase(enemies.begin() + index);
-
-    }catch(const char* msg){
-
-        cout << "Error: " << msg;
-    }
+    enemies.erase(
+        remove_if(enemies.begin(), enemies.end(), [](const enemie& e) {
+            return (e.scale) < 0.01f;
+        }),
+        enemies.end()
+    );
 }
 // plays different effect for enemies
 void enemie::animate()
@@ -77,15 +78,10 @@ void enemie::animate()
     {
         modulate = WHITE;
     }
-
-    if (die_anim > 0.0f)
-    {
+    if(die_anim > 0.0f){
         scale = lerp(scale,0.0f,0.2);
     }
-    if (scale < 0.01f)
-    {
-        die(GetIndexFromId(id));
-    }
+    
 }
 
 
@@ -147,6 +143,7 @@ void enemies_update()
         i.pos.x = lerp(i.pos.x, player.pos.x, speed);
         i.pos.y = lerp(i.pos.y, player.pos.y, speed);
     }
+    clean_up();
 }
 
 void enemies_draw()
