@@ -2,11 +2,11 @@
 
 /* #region bullets var*/
 vector<actor> bullets;
-float b_cooldown = 0.1f * target_fps;
+float b_cooldown = 0.1f;
 float b_size = 1.0f;
 float b_dmg = 1.0f;
 float b_speed = 15.0f;
-float b_time_left = b_cooldown;
+Timer b_time_left = {b_cooldown};
 /* #endregion */
 
 
@@ -55,16 +55,13 @@ void player_update()
         }
     }
 
-    if (b_time_left > 0.0f){
-    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
-        b_time_left -= 1;
-    }
-    }
-    else if (b_time_left <= 0)
-    {
-        b_time_left = b_cooldown;
+
+    UpdateTimer(&b_time_left);
+    if(IsTimerDone(&b_time_left)&&IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
+        StartTimer(&b_time_left,b_cooldown);
         shoot();
     }
+
     /* #endregion */
 
     // look at the mosue
