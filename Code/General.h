@@ -32,7 +32,7 @@ extern float b_speed;
 class enemie : public actor {
 public:
     int id;
-    int money;
+    int money_drop;
     float hit_anim = 0.0f;
     float die_anim = 0.0f;
     Color target_color = {255,255,255,255};

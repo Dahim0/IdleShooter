@@ -20,6 +20,7 @@ int main() {
         ClearBackground(BLACK);
         player_draw();
         enemies_draw();
+        DrawText(TextFormat("%.2f$", money), 20, 20, 30, YELLOW);
 
         EndDrawing();
 

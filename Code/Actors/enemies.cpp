@@ -2,7 +2,7 @@
 
 vector<enemie> enemies;
 
-float timer = 3 * target_fps;
+float timer = 1 * target_fps;
 float time_left = timer;
 
 float diffuclty = 1.0f;
@@ -11,6 +11,8 @@ float speed = 0.001f;
 int current_id = 0;
 
 /* #region  Custom Enemie Class */
+
+//give out the index of the object in the enemies vector via the object id
 int GetIndexFromId(int id) {
     for (size_t i = 0; i < enemies.size(); i++) {
         if (enemies[i].id == id) {
@@ -19,8 +21,7 @@ int GetIndexFromId(int id) {
     }
     return -1; // Return -1 for "not found" instead of NAN (NAN is for floating-point numbers)
 }
-
-
+//no paramterer consturcter
 enemie::enemie()
 {
     rotation = 0;
@@ -29,9 +30,10 @@ enemie::enemie()
     vel = {0, 0};
     path = "Assets/enemies.png";
     modulate = WHITE;
-    money = 0;
+    money_drop = 0;
     scale = 1.0;
 }
+//constuctor
 enemie::enemie(Vector2 POS, Vector2 VEL, int HP, int MONEY, float SCALE, std::string TEXTURE_PATH, Color MODULATE)
 {
     scale = SCALE;
@@ -39,9 +41,10 @@ enemie::enemie(Vector2 POS, Vector2 VEL, int HP, int MONEY, float SCALE, std::st
     vel = VEL;
     path = TEXTURE_PATH;
     hp = HP;
-    money = MONEY;
+    money_drop = MONEY;
     modulate = MODULATE;
 }
+//when enemie take damage
 void enemie::damage(float dmg, int v_index, int a_index)
 {
     if(die_anim == 0.0f){
@@ -52,6 +55,7 @@ void enemie::damage(float dmg, int v_index, int a_index)
     hp -= dmg;
     if (hp <= 0)
     {
+        money += money_drop;
         die_anim = 1.0f;
     }
     }
@@ -61,7 +65,7 @@ void clean_up()
 {
     enemies.erase(
         remove_if(enemies.begin(), enemies.end(), [](const enemie& e) {
-            return (e.scale) < 0.01f;
+            return (e.modulate.a) < 0.01f;
         }),
         enemies.end()
     );
@@ -83,7 +87,8 @@ void enemie::animate()
         modulate = target_color;
     }
     if(die_anim > 0.0f){
-        scale = lerp(scale,0.0f,0.2);
+        
+        target_color.a = lerp(target_color.a,0,0.1);
     }
     
 }
@@ -123,7 +128,7 @@ void spawn_enemie(float diffuclty)
     PUPPET.id = current_id;
     PUPPET.pos = starting_pos;
     PUPPET.hp = 5;
-    PUPPET.money = 1;
+    PUPPET.money_drop = 5;
     PUPPET.path = "Assets/enemies.png";
     enemies.push_back(PUPPET);
 }
@@ -141,6 +146,9 @@ void enemies_update()
     }
     for (enemie &i : enemies)
     {
+        if(i.die_anim > 0){
+            continue;
+        }
         i.pos.x = lerp(i.pos.x, player.pos.x, speed);
         i.pos.y = lerp(i.pos.y, player.pos.y, speed);
     }

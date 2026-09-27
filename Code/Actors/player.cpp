@@ -37,8 +37,13 @@ void player_update()
         }
         for (int u = 0; u < enemies.size(); u++)
         { // enemies
+            //skips dying enemies
+            if(enemies[u].die_anim > 0){
+                continue;
+            }
             if (distance_v2(bullets[i].pos, enemies[u].pos) < (bullets[i].width + enemies[u].width) / 2)
             {
+            
                 try{
                 enemies[u].damage(b_dmg, u, i);
                 bullets.erase(bullets.begin() + i);
