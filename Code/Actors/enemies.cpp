@@ -48,7 +48,7 @@ void enemie::damage(float dmg, int v_index, int a_index)
     hit_anim = 0.1f * target_fps;
     animate();
     draw();
-    pos = add_v2(pos, bullets[a_index].vel);
+    pos = add_v2(pos, mult_v2(normalized(bullets[a_index].vel),5.0f));
     hp -= dmg;
     if (hp <= 0)
     {
@@ -72,20 +72,21 @@ void enemie::animate()
     if (hit_anim > 0.0f)
     {
         hit_anim--;
-        modulate = RED;
+        target_color.b = lerp(target_color.b,0,0.7);
+        target_color.g = lerp(target_color.g,0,0.7);
+        modulate = target_color;
     }
     else
     {
-        modulate = WHITE;
+        target_color.b = lerp(target_color.b,255,0.1);
+        target_color.g = lerp(target_color.g,255,0.1);
+        modulate = target_color;
     }
     if(die_anim > 0.0f){
         scale = lerp(scale,0.0f,0.2);
     }
     
 }
-
-
-
 
 /* #endregion */
 
@@ -153,6 +154,10 @@ void enemies_draw()
         
         i.draw();
         i.animate();
-        DrawText(TextFormat("%d", i.id), i.pos.x, i.pos.y, 30, YELLOW);
+
+        /*
+        in case you want to debug the id of the enemie
+        DrawText(TextFormat("%d", i.id), i.pos.x, i.pos.y, 30, YELLOW)
+        */
     }
 }

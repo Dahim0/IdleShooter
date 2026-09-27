@@ -2,7 +2,7 @@
 
 /* #region bullets var*/
 vector<actor> bullets;
-float b_cooldown = 0.2f * target_fps;
+float b_cooldown = 0.1f * target_fps;
 float b_size = 1.0f;
 float b_dmg = 1.0f;
 float b_speed = 15.0f;

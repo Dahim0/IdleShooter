@@ -35,6 +35,7 @@ public:
     int money;
     float hit_anim = 0.0f;
     float die_anim = 0.0f;
+    Color target_color = {255,255,255,255};
     /// @brief 
     /// @param dmg Damage received
     /// @param v_index Victim index
