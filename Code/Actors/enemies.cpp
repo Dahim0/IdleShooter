@@ -97,25 +97,25 @@ void enemie::animate()
 
 void spawn_enemie(float diffuclty)
 {
+    enemie PUPPET;
     int starting_direction = randi(1, 4);
-    Vector2 starting_pos;
     switch (starting_direction)
     {
     case 1:
         // left
-        starting_pos = {-50, (float)randi(0, 800)};
+        PUPPET.pos = {-50, (float)randi(0, 800)};
         break;
     case 2:
         // up
-        starting_pos = {(float)randi(0, 400), -50};
+        PUPPET.pos = {(float)randi(0, 400), -50};
         break;
     case 3:
         // right
-        starting_pos = {850, (float)randi(0, 800)};
+        PUPPET.pos = {850, (float)randi(0, 800)};
         break;
     case 4:
         // down
-        starting_pos = {(float)randi(0, 400), 550};
+        PUPPET.pos = {(float)randi(0, 400), 550};
         break;
     }
 
@@ -124,9 +124,8 @@ void spawn_enemie(float diffuclty)
         current_id = 0;
     }
     current_id ++;
-    enemie PUPPET(starting_pos, {0, 0}, /*hp*/ 5, /*money*/ 0, /*scale*/ 1.0f, "Assets/enemies.png", WHITE);
+
     PUPPET.id = current_id;
-    PUPPET.pos = starting_pos;
     PUPPET.hp = 5;
     PUPPET.money_drop = 5;
     PUPPET.path = "Assets/enemies.png";

@@ -12,13 +12,14 @@ Timer b_time_left = {b_cooldown};
 
 void shoot()
 {
-    Vector2 target_pos;
-    target_pos.x = normalized(GetMousePosition()).x + player.pos.x;
-    target_pos.y = normalized(GetMousePosition()).y + player.pos.y;
-    Vector2 target_vel;
-    target_vel = normalized(sub_v2(GetMousePosition(), player.pos));
+    actor PUPPET;
+    PUPPET.pos.x = normalized(GetMousePosition()).x + player.pos.x;
+    PUPPET.pos.y = normalized(GetMousePosition()).y + player.pos.y;
+    PUPPET.vel = mult_v2(normalized(sub_v2(GetMousePosition(), player.pos)),b_speed);
+    PUPPET.scale = b_size;
+    PUPPET.path = "Assets/bullet.png";
 
-    bullets.push_back(actor(target_pos, mult_v2(target_vel, b_speed), 0, 1, "Assets/bullet.png"));
+    bullets.push_back(PUPPET);
 }
 
 actor player({400, 250}, {0, 0}, 0, 1, "Assets/player.png");
@@ -28,31 +29,34 @@ void player_update()
     /* #region bullets */
     for (int i = 0; i < bullets.size(); i++)
     {
-        bullets[i].move();
-        bullets[i].scale = b_size;
 
+        bullets[i].move();
         if (distance_v2(bullets[i].pos, player.pos) > 1000)
         {
             bullets.erase(bullets.begin() + i); // weird but work
         }
+
         for (int u = 0; u < enemies.size(); u++)
-        { // enemies
+        {
+            
             //skips dying enemies
             if(enemies[u].die_anim > 0){
                 continue;
             }
             if (distance_v2(bullets[i].pos, enemies[u].pos) < (bullets[i].width + enemies[u].width) / 2)
             {
-            
                 try{
-                enemies[u].damage(b_dmg, u, i);
-                bullets.erase(bullets.begin() + i);
+                    enemies[u].damage(b_dmg, u, i);
+                    bullets.erase(bullets.begin() + i);
                 }
                 catch (const char* msg) {
-                cout << "Error: " << msg; 
+                    cout << "Error: " << msg; 
                 } 
+
             }
+
         }
+
     }
 
 

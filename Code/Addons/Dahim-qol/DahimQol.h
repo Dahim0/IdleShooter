@@ -77,4 +77,7 @@ inline bool IsTimerDone(Timer* timer){
     if (timer != NULL){
         return timer->LifeTime <= 0;
     }
+    else{
+        return false;
+    }
 }
