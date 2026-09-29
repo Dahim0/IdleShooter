@@ -31,10 +31,13 @@ void player_update()
     {
 
         bullets[i].move();
-        if (distance_v2(bullets[i].pos, player.pos) > 1000)
-        {
-            bullets.erase(bullets.begin() + i); // weird but work
-        }
+        //bullet-proof remover (pun's inteded)
+        bullets.erase(
+            remove_if(bullets.begin(), bullets.end(), [](const actor& e) {
+                return (distance_v2(e.pos,player.pos)) > 1000;
+            }),
+            bullets.end()
+        );
 
         for (int u = 0; u < enemies.size(); u++)
         {
@@ -45,15 +48,10 @@ void player_update()
             }
             if (distance_v2(bullets[i].pos, enemies[u].pos) < (bullets[i].width + enemies[u].width) / 2)
             {
-                try{
-                    enemies[u].damage(b_dmg, u, i);
-                    bullets.erase(bullets.begin() + i);
-                }
-                catch (const char* msg) {
-                    cout << "Error: " << msg; 
-                } 
-
+                enemies[u].damage(b_dmg, u, i);
+                bullets[i].pos = {50000,0}; // moving them out of bound so they get deleted safly
             }
+
 
         }
 
