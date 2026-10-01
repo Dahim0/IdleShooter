@@ -59,23 +59,40 @@ inline float lerp(float a, float b, float t)
 /// @brief Timer with a certain life time
 typedef struct{
     float LifeTime;
+    bool JustDone;
 }Timer;
 /// @brief Start or restart a timer in x seconds
 inline void StartTimer(Timer* timer,float LifeTime){
     if(timer != NULL){
         timer->LifeTime= LifeTime;
+        timer->JustDone= false;
     }
 }
 /// @brief Update specefied timer so it can runs out
 inline void UpdateTimer(Timer* timer){
+    timer->JustDone=false;
+
     if(timer != NULL && timer->LifeTime > 0){
+        if(timer->LifeTime - GetFrameTime() <= 0){
+            timer->JustDone=true;
+        }
         timer->LifeTime-= GetFrameTime();
     }
+
 }
 /// @brief Return true if timer LifeTime is equal or smaller to zero
 inline bool IsTimerDone(Timer* timer){
     if (timer != NULL){
         return timer->LifeTime <= 0;
+    }
+    else{
+        return false;
+    }
+}
+/// @brief Return true if timer Hit 0 this frame
+inline bool IsTimerJustDone(Timer* timer){
+    if (timer != NULL){
+        return timer->JustDone;
     }
     else{
         return false;

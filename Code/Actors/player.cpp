@@ -1,12 +1,12 @@
 #include "Code/General.h"
 
-/* #region bullets var*/
-vector<actor> bullets;
-float b_cooldown = 0.1f;
-float b_size = 1.0f;
-float b_dmg = 1.0f;
-float b_speed = 15.0f;
-Timer b_time_left = {b_cooldown};
+/* #region Bullets var*/
+vector<actor> Bullets;
+float SpawnBulletCooldown = 0.1f;//seconds
+float BulletSize = 1.0f;
+float BulletDmg = 1.0f;
+float BulletSpd = 15.0f;
+Timer SpawnBulletTimer = {SpawnBulletCooldown,false};
 /* #endregion */
 
 
@@ -15,41 +15,41 @@ void shoot()
     actor PUPPET;
     PUPPET.pos.x = normalized(GetMousePosition()).x + player.pos.x;
     PUPPET.pos.y = normalized(GetMousePosition()).y + player.pos.y;
-    PUPPET.vel = mult_v2(normalized(sub_v2(GetMousePosition(), player.pos)),b_speed);
-    PUPPET.scale = b_size;
+    PUPPET.vel = mult_v2(normalized(sub_v2(GetMousePosition(), player.pos)),BulletSpd);
+    PUPPET.scale = BulletSize;
     PUPPET.path = "Assets/bullet.png";
 
-    bullets.push_back(PUPPET);
+    Bullets.push_back(PUPPET);
 }
 
 actor player({400, 250}, {0, 0}, 0, 1, "Assets/player.png");
 
 void player_update()
 {
-    /* #region bullets */
-    for (int i = 0; i < bullets.size(); i++)
+    /* #region Bullets */
+    for (int i = 0; i < Bullets.size(); i++)
     {
 
-        bullets[i].move();
+        Bullets[i].move();
         //bullet-proof remover (pun's inteded)
-        bullets.erase(
-            remove_if(bullets.begin(), bullets.end(), [](const actor& e) {
+        Bullets.erase(
+            remove_if(Bullets.begin(), Bullets.end(), [](const actor& e) {
                 return (distance_v2(e.pos,player.pos)) > 1000;
             }),
-            bullets.end()
+            Bullets.end()
         );
 
         for (int u = 0; u < enemies.size(); u++)
         {
             
             //skips dying enemies
-            if(enemies[u].die_anim > 0){
+            if(enemies[u].die_anim.LifeTime > 0){
                 continue;
             }
-            if (distance_v2(bullets[i].pos, enemies[u].pos) < (bullets[i].width + enemies[u].width) / 2)
+            if (distance_v2(Bullets[i].pos, enemies[u].pos) < (Bullets[i].width + enemies[u].width) / 2)
             {
-                enemies[u].damage(b_dmg, u, i);
-                bullets[i].pos = {50000,0}; // moving them out of bound so they get deleted safly
+                enemies[u].damage(BulletDmg, u, i);
+                Bullets[i].pos = {50000,0}; // moving them out of bound so they get deleted safly
             }
 
 
@@ -58,9 +58,9 @@ void player_update()
     }
 
 
-    UpdateTimer(&b_time_left);
-    if(IsTimerDone(&b_time_left)&&IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
-        StartTimer(&b_time_left,b_cooldown);
+    UpdateTimer(&SpawnBulletTimer);
+    if(IsTimerDone(&SpawnBulletTimer)&&IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
+        StartTimer(&SpawnBulletTimer,SpawnBulletCooldown);
         shoot();
     }
 
@@ -75,7 +75,7 @@ void player_update()
 
 void player_draw()
 {
-    for (actor &i : bullets)
+    for (actor &i : Bullets)
     {
         i.draw();
     }

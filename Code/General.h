@@ -21,11 +21,11 @@ extern actor player;
 void player_update();
 void player_draw();
 //bullets
-extern vector<actor> bullets;
-extern float b_cooldown;         
-extern float b_size;
-extern float b_dmg;
-extern float b_speed;  
+extern vector<actor> Bullets;
+extern float SpawnBulletCooldown;//seconds
+extern float BulletSize;
+extern float BulletDmg;
+extern float BulletSpd;
 
 
 //enemies
@@ -33,18 +33,16 @@ class enemie : public actor {
 public:
     int id;
     int money_drop;
-    float hit_anim = 0.0f;
-    float die_anim = 0.0f;
+    Timer hit_anim = {0,false};
+    Timer die_anim = {0,false};
     Color target_color = {255,255,255,255};
     /// @brief 
     /// @param dmg Damage received
     /// @param v_index Victim index
     /// @param a_index Attacker index
     void damage(float dmg, int v_index, int a_index);
-    
     void animate();
     enemie();
-    enemie( Vector2 POS, Vector2 VEL,int HP, int MONEY, float SCALE,std::string TEXTURE_PATH,Color MODULATE);
 };
 extern float diffuclty;
 extern vector<enemie> enemies;
@@ -53,4 +51,4 @@ void enemies_draw();
 void spawn_enemie(float diffuclty);
 void clean_up();
 
-#endif
+#endif // GENERAL_H
