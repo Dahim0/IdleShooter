@@ -57,6 +57,7 @@ void clean_up()
 {
     enemies.erase(
         remove_if(enemies.begin(), enemies.end(), [](const enemie& e) {
+            
             return e.die_anim.JustDone; //cant use the IsTimerJustDone() bcs cpp dum.
         }),
         enemies.end()
@@ -68,6 +69,20 @@ void enemie::animate()
     UpdateTimer(&hit_anim);
     UpdateTimer(&die_anim);
 
+    if (hit_anim.LifeTime > 0)
+    {
+        //Make enemie redder when hit
+        target_color.b = lerp(target_color.b,0,0.4);
+        target_color.g = lerp(target_color.g,0,0.4);
+        modulate = target_color;
+    }
+    else
+    {
+        //Make enemie white when hit
+        target_color.b = lerp(target_color.b,255,0.1);
+        target_color.g = lerp(target_color.g,255,0.1);
+        modulate = target_color;
+    }
 
     if(!IsTimerDone(&die_anim)){
         //make enemie grey when dying
@@ -141,6 +156,7 @@ void enemies_update()
 
 void enemies_draw()
 {
+    
     for (enemie &i : enemies)
     {
         
