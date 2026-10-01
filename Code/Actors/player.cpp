@@ -6,7 +6,7 @@ float SpawnBulletCooldown = 0.1f;//seconds
 float BulletSize = 1.0f;
 float BulletDmg = 1.0f;
 float BulletSpd = 15.0f;
-Timer SpawnBulletTimer = {SpawnBulletCooldown,false};
+Timer SpawnBulletTimer = {SpawnBulletCooldown};
 /* #endregion */
 
 

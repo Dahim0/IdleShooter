@@ -57,10 +57,10 @@ inline float lerp(float a, float b, float t)
 // Timer section, all credit to : https://www.youtube.com/@GameDevTutorialsYT
 
 /// @brief Timer with a certain life time
-typedef struct{
-    float LifeTime;
-    bool JustDone;
-}Timer;
+struct Timer{
+    float LifeTime = 0;
+    bool JustDone = false;
+};
 /// @brief Start or restart a timer in x seconds
 inline void StartTimer(Timer* timer,float LifeTime){
     if(timer != NULL){

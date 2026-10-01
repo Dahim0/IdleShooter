@@ -3,10 +3,12 @@
 vector<enemie> enemies;
 
 float SpawnEnemieCooldown = 1;//seconds
-Timer SpawnEnemieTimer = {SpawnEnemieCooldown,false};
+Timer SpawnEnemieTimer = {SpawnEnemieCooldown};
 
 float diffuclty = 1.0f;
-float speed = 0.001f;
+float speed = 0.0001f;
+float friction = 1.1f;
+int KnockBack = 1.5;
 
 int current_id = 0;
 
@@ -41,15 +43,18 @@ void enemie::damage(float dmg, int v_index, int a_index)
     if(IsTimerDone(&hit_anim)){
         StartTimer(&hit_anim,0.1f);
 
-        animate();
-        draw();
-        pos = add_v2(pos, mult_v2(normalized(Bullets[a_index].vel),5.0f));
+        draw(); // needed to smooth out things
+
+        vel = mult_v2(normalized(Bullets[a_index].vel),KnockBack);
+
+
         hp -= dmg;
         if (hp <= 0)
         {
             money += money_drop;
             StartTimer(&die_anim,1.0f);
         }
+
     }
 }
 // remove enemies if too small
@@ -142,13 +147,21 @@ void enemies_update()
 
     for (enemie &i : enemies)
     {
-        //stop dead enemies from moving
+        i.move();
+
+        //stop dead enemies from updating
         if(i.die_anim.LifeTime > 0){
             continue;
         }
         //move enemies toward player
-        i.pos.x = lerp(i.pos.x, player.pos.x, speed);
-        i.pos.y = lerp(i.pos.y, player.pos.y, speed);
+
+        i.vel.x += sub_v2(player.pos,i.pos).x*speed;
+        i.vel.y += sub_v2(player.pos,i.pos).y*speed;
+
+        i.vel.x /= friction;
+        i.vel.y /= friction;
+
+        
     }
 
     clean_up();

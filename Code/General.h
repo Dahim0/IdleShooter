@@ -7,7 +7,7 @@
 #include <vector>
 #include <cmath>
 //personal addons
-#include "Code/Addons/Dahim-qol/DahimQol.h"
+#include "Code/Addons/Dahim-qol/DahimQol.hpp"
 #include "Code/Addons/Dahim-actors/actor.h"
 
 using namespace std;
@@ -33,8 +33,8 @@ class enemie : public actor {
 public:
     int id;
     int money_drop;
-    Timer hit_anim = {0,false};
-    Timer die_anim = {0,false};
+    Timer hit_anim;
+    Timer die_anim;
     Color target_color = {255,255,255,255};
     /// @brief 
     /// @param dmg Damage received
