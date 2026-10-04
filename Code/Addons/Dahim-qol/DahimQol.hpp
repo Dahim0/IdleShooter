@@ -48,7 +48,7 @@ inline float distance_v2(Vector2 vec1, Vector2 vec2){
     float dy = vec1.y - vec2.y;
     return sqrt(dx*dx + dy*dy);
 }
-/// @brief Return a number that is between a & b using t as a middle;
+/// @brief Return a number that is between a & b using t as a middle, works with Colors and Vector 2;
 inline float lerp(float a, float b, float t)
 {
     return a + t * (b - a);
@@ -57,6 +57,14 @@ inline Vector2 lerp(Vector2 a, Vector2 b, float t){
     Vector2 final = {0,0};
     final.x = a.x + t * (b.x - a.x);
     final.y = a.y + t * (b.y - a.y);
+    return final;
+}
+inline Color lerp(Color a, Color b, float t){
+    Color final;
+    final.r = a.r + t * (b.r - a.r);
+    final.g = a.g + t * (b.g - a.g);
+    final.b = a.b + t * (b.b - a.b);
+    final.a = a.a + t * (b.a - a.a);
     return final;
 }
 /// @brief Return a rotation in degree depending on the vector 2d

@@ -5,12 +5,25 @@ vector<enemie> enemies;
 float SpawnEnemieCooldown = 1;//seconds
 Timer SpawnEnemieTimer = {SpawnEnemieCooldown};
 
-float diffuclty = 1.0f;
+
 float speed = 0.0001f;
 float friction = 1.1f;
 int KnockBack = 2;
+int diffuclty = 1;
+
+enum ColorHp{
+  white = 5,
+  green = 10,
+  blue = 20,
+  violet = 50,
+  orange = 100,
+};
+ColorHp CurrentColor = white;
+
 
 int current_id = 0;
+
+
 
 /* #region  Custom Enemie Class */
 
@@ -76,42 +89,55 @@ void enemie::animate()
     if (hit_anim.LifeTime > 0)
     {
         //Make enemie redder when hit
-        target_color.b = lerp(target_color.b,0,0.4);
-        target_color.g = lerp(target_color.g,0,0.4);
-        modulate = target_color;
+        target_color = lerp(target_color,{255,0,0,255},0.4);
     }
     else
     {
         //Make enemie white when hit
-        target_color.b = lerp(target_color.b,255,0.1);
-        target_color.g = lerp(target_color.g,255,0.1);
-        modulate = target_color;
+        target_color = lerp(target_color,diff_color,0.1);
     }
 
     if(!IsTimerDone(&die_anim)){
         //make enemie grey when dying
-        target_color.a = lerp(target_color.a,0,0.1);
-        modulate = target_color;
+        target_color = lerp(target_color,{0,0,0,0},0.1);
     }
-    
+    modulate = target_color;
 }
 
 /* #endregion */
 
-void spawn_enemie(float diffuclty)
+void spawn_enemie()
 {
     enemie PUPPET;
+
+    switch (CurrentColor)
+    {
+    case white:
+        PUPPET.diff_color = WHITE;
+        break;
+    case green:
+        PUPPET.diff_color = GREEN;
+        break;
+    case blue:
+        PUPPET.diff_color = BLUE;
+        break;
+    case violet:
+        PUPPET.diff_color = PURPLE;
+        break;
+    case orange:
+        PUPPET.diff_color = ORANGE;
+        break;
+    }
     // 250 000 000 (i dont think anyone will ever have this many enemies,if so they deserve for the game to crash)
     if(current_id > 250000000){
         current_id = 0;
     }
     current_id ++;
-
     PUPPET.id = current_id;
-    // We make the enemie appear around the player in the circumrence of a circle with a radius of 800
+    // We make the enemie appear around the player in the circumrence of a circle with a radius of 500
     PUPPET.pos = add_v2(player.pos,mult_v2(DegToVec(randi(0,360)),500));
-    PUPPET.hp = 5;
-    PUPPET.money_drop = 5;
+    PUPPET.hp = CurrentColor * diffuclty;
+    PUPPET.money_drop = PUPPET.hp;
     PUPPET.path = "Assets/enemies.png";
     enemies.push_back(PUPPET);
 }
@@ -121,7 +147,7 @@ void enemies_update()
     UpdateTimer(&SpawnEnemieTimer);
     if (IsTimerDone(&SpawnEnemieTimer))
     {
-        spawn_enemie(diffuclty);
+        spawn_enemie();
         StartTimer(&SpawnEnemieTimer,SpawnEnemieCooldown);
     }
 

@@ -35,6 +35,7 @@ public:
     int money_drop;
     Timer hit_anim;
     Timer die_anim;
+    Color diff_color; // diffuculty color
     Color target_color = {255,255,255,255};
     /// @brief 
     /// @param dmg Damage received
@@ -44,7 +45,7 @@ public:
     void animate();
     enemie();
 };
-extern float diffuclty;
+extern int diffuclty;
 extern vector<enemie> enemies;
 void enemies_update();
 void enemies_draw();
