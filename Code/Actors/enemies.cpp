@@ -8,7 +8,7 @@ Timer SpawnEnemieTimer = {SpawnEnemieCooldown};
 float diffuclty = 1.0f;
 float speed = 0.0001f;
 float friction = 1.1f;
-int KnockBack = 1.5;
+int KnockBack = 2;
 
 int current_id = 0;
 
@@ -40,22 +40,21 @@ enemie::enemie()
 //when enemie take damage
 void enemie::damage(float dmg, int v_index, int a_index)
 {
-    if(IsTimerDone(&hit_anim)){
-        StartTimer(&hit_anim,0.1f);
+    StartTimer(&hit_anim,0.1f);
 
-        draw(); // needed to smooth out things
+    draw(); // needed to smooth out things
 
-        vel = mult_v2(normalized(Bullets[a_index].vel),KnockBack);
+    vel = mult_v2(normalized(Bullets[a_index].vel),KnockBack);
 
 
-        hp -= dmg;
-        if (hp <= 0)
-        {
-            money += money_drop;
-            StartTimer(&die_anim,1.0f);
-        }
-
+    hp -= dmg;
+    if (hp <= 0)
+    {
+        money += money_drop;
+        StartTimer(&die_anim,1.0f);
     }
+
+    
 }
 // remove enemies if too small
 void clean_up()
@@ -102,27 +101,6 @@ void enemie::animate()
 void spawn_enemie(float diffuclty)
 {
     enemie PUPPET;
-    int StartingDirection = randi(1, 4);
-    switch (StartingDirection)
-    {
-    case 1:
-        // left
-        PUPPET.pos = {-50, (float)randi(0, 800)};
-        break;
-    case 2:
-        // up
-        PUPPET.pos = {(float)randi(0, 400), -50};
-        break;
-    case 3:
-        // right
-        PUPPET.pos = {850, (float)randi(0, 800)};
-        break;
-    case 4:
-        // down
-        PUPPET.pos = {(float)randi(0, 400), 550};
-        break;
-    }
-
     // 250 000 000 (i dont think anyone will ever have this many enemies,if so they deserve for the game to crash)
     if(current_id > 250000000){
         current_id = 0;
@@ -130,6 +108,8 @@ void spawn_enemie(float diffuclty)
     current_id ++;
 
     PUPPET.id = current_id;
+    // We make the enemie appear around the player in the circumrence of a circle with a radius of 800
+    PUPPET.pos = add_v2(player.pos,mult_v2(DegToVec(randi(0,360)),500));
     PUPPET.hp = 5;
     PUPPET.money_drop = 5;
     PUPPET.path = "Assets/enemies.png";

@@ -53,6 +53,24 @@ inline float lerp(float a, float b, float t)
 {
     return a + t * (b - a);
 }
+inline Vector2 lerp(Vector2 a, Vector2 b, float t){
+    Vector2 final = {0,0};
+    final.x = a.x + t * (b.x - a.x);
+    final.y = a.y + t * (b.y - a.y);
+    return final;
+}
+/// @brief Return a rotation in degree depending on the vector 2d
+inline float VecToDeg(Vector2 vec){
+    return atan2(vec.x,vec.y)*(180 / M_PI);
+}
+/// @brief Return a rotation in rad depending on the vector 2d
+inline float VecToRad(Vector2 vec){
+    return atan2(vec.x,vec.y);
+}
+inline Vector2 DegToVec(float deg){
+    deg *= 0.0174533;
+    return {cos(deg),sin(deg)};
+}
 
 // Timer section, all credit to : https://www.youtube.com/@GameDevTutorialsYT
 

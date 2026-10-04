@@ -67,10 +67,7 @@ void player_update()
     /* #endregion */
 
     // look at the mosue
-    player.rotation = atan2(
-    -(GetMousePosition().x - player.pos.x),
-    GetMousePosition().y - player.pos.y) *
-    (180 / M_PI);
+    player.rotation = -VecToDeg(sub_v2(GetMousePosition(),player.pos));
 }
 
 void player_draw()
