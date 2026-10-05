@@ -62,7 +62,10 @@ void player_update()
     if(IsTimerDone(&SpawnBulletTimer)&&IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
         StartTimer(&SpawnBulletTimer,SpawnBulletCooldown);
         shoot();
+        player.pos = sub_v2(player.pos,mult_v2(normalized(sub_v2(GetMousePosition(), player.pos)),SpawnBulletCooldown*25));
+        
     }
+    player.pos = lerp(player.pos , Vector2{400, 250},0.1);
 
     /* #endregion */
 

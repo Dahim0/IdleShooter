@@ -86,6 +86,12 @@ void enemie::animate()
     UpdateTimer(&hit_anim);
     UpdateTimer(&die_anim);
 
+    
+    if(!IsTimerDone(&die_anim)){
+        //make enemie grey when dying
+        target_color.a = lerp(target_color.a,0,0.05);
+        diff_color.a = 0;
+    }
     if (hit_anim.LifeTime > 0)
     {
         //Make enemie redder when hit
@@ -97,10 +103,7 @@ void enemie::animate()
         target_color = lerp(target_color,diff_color,0.1);
     }
 
-    if(!IsTimerDone(&die_anim)){
-        //make enemie grey when dying
-        target_color = lerp(target_color,{0,0,0,0},0.1);
-    }
+
     modulate = target_color;
 }
 
