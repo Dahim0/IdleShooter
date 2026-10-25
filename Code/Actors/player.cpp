@@ -10,19 +10,29 @@ Timer SpawnBulletTimer = {SpawnBulletCooldown};
 /* #endregion */
 
 
+
+
+actor player({400, 250}, {0, 0}, 0, 1, "Assets/player.png");
+
+
 void shoot()
 {
+    
     actor PUPPET;
     PUPPET.pos.x = normalized(GetMousePosition()).x + player.pos.x;
     PUPPET.pos.y = normalized(GetMousePosition()).y + player.pos.y;
     PUPPET.vel = mult_v2(normalized(sub_v2(GetMousePosition(), player.pos)),BulletSpd);
     PUPPET.scale = BulletSize;
     PUPPET.path = "Assets/bullet.png";
-
     Bullets.push_back(PUPPET);
+
+
+    Sound SfxShoot = LoadSound("Assets/laserShoot.wav");
+    SetSoundPitch(SfxShoot,randf(0.5,1.5));
+    PlaySound(SfxShoot);
+
 }
 
-actor player({400, 250}, {0, 0}, 0, 1, "Assets/player.png");
 
 void player_update()
 {

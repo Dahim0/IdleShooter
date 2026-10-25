@@ -1,11 +1,18 @@
 #include <cstdlib>
 #include "raylib.h"
 #include <cmath>
-
 /// @brief Return a random number from an inteager to another inteager
 inline int randi(int from,int to){
     return (rand() % (to - from + 1))+from;
 }
+/// @brief Return a random number from a float  to another float
+inline float randf(float from, float to) {
+    float random = ((float) rand()) / (float) RAND_MAX;
+    float diff = to - from;
+    float r = random * diff;
+    return from + r;
+}
+
 /// @brief Return a vector2 if it was normalized
 inline Vector2 normalized(Vector2 vector){
     float l = sqrt(vector.x*vector.x + vector.y*vector.y);

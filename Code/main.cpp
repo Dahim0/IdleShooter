@@ -6,11 +6,12 @@ int target_fps = 60;
 float money = 0.0f;
 
 int main() {
+        // Initialize audio device
 
     InitWindow(800, 500, "IdleShooter"); 
     SetTargetFPS(target_fps);
 
-
+    InitAudioDevice();  
     
     while (!WindowShouldClose()) {
 
@@ -29,7 +30,7 @@ int main() {
     }
 
 
-
+    CloseAudioDevice();
     CloseWindow();
     return 0;
 }
