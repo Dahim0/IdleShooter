@@ -7,8 +7,8 @@
 #include <vector>
 #include <cmath>
 //personal addons
-#include "Code/Addons/Dahim-qol/DahimQol.hpp"
-#include "Code/Addons/Dahim-actors/actor.h"
+#include "Code/Addons/DahimsRaylibQOL/DahimQol.hpp"
+#include "Code/Addons/RayActors/actor.cpp"
 
 using namespace std;
 
