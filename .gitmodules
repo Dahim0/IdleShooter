@@ -1,0 +1,9 @@
+[submodule "Code/Addons/RayActors"]
+	path = Code/Addons/RayActors
+	url = https://github.com/Dahim0/RayActors
+[submodule "Code/Addons/DahimsRaylibQOL"]
+	path = Code/Addons/DahimsRaylibQOL
+	url = https://github.com/Dahim0/DahimsRaylibQOL
+[submodule "Code/Addons/DahimsRaylibGui"]
+	path = Code/Addons/DahimsRaylibGui
+	url = https://github.com/Dahim0/DahimsRaylibGui
