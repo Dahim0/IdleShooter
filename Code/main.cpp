@@ -4,6 +4,7 @@ using namespace std;
 
 int target_fps = 60;
 float money = 0.0f;
+float volume = 0.3;
 
 int main() {
         // Initialize audio device
@@ -12,7 +13,8 @@ int main() {
     SetTargetFPS(target_fps);
 
     InitAudioDevice();  
-    
+    player_init();
+    enemies_init();
     while (!WindowShouldClose()) {
 
 
@@ -22,6 +24,7 @@ int main() {
         player_draw();
         enemies_draw();
         DrawText(TextFormat("%.0f$", money), 20, 20, 20, YELLOW);
+
         EndDrawing();
 
         player_update();

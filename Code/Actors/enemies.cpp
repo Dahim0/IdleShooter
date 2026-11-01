@@ -2,15 +2,17 @@
 
 vector<enemie> enemies;
 
+//spawn timers
 float SpawnEnemieCooldown = 1;//seconds
 Timer SpawnEnemieTimer = {SpawnEnemieCooldown};
 
-
+//enemies stats
 float speed = 0.0001f;
 float friction = 1.1f;
 int KnockBack = 2;
 int diffuclty = 1;
 
+//enemie colors 
 enum ColorHp{
   white = 5,
   green = 10,
@@ -20,10 +22,13 @@ enum ColorHp{
 };
 ColorHp CurrentColor = white;
 
-
+//used to give an id to each enemie but isnt used in code for anything
 int current_id = 0;
 
-
+Sound SfxHurt;
+void enemies_init(){
+    SfxHurt = LoadSound("Assets/EnemieHurt.wav");
+}
 
 /* #region  Custom Enemie Class */
 
@@ -54,7 +59,9 @@ enemie::enemie()
 void enemie::damage(float dmg, int v_index, int a_index)
 {
     StartTimer(&hit_anim,0.1f);
-
+    SetSoundPitch(SfxHurt,randf(0.8,1.2));
+    SetSoundVolume(SfxHurt,volume);
+    PlaySound(SfxHurt);
     draw(); // needed to smooth out things
 
     vel = mult_v2(normalized(Bullets[a_index].vel),KnockBack);

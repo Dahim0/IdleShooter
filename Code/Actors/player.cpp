@@ -1,5 +1,10 @@
 #include "Code/General.h"
 
+
+
+
+
+
 /* #region Bullets var*/
 vector<actor> Bullets;
 float SpawnBulletCooldown = 0.1f;//seconds
@@ -9,10 +14,12 @@ float BulletSpd = 15.0f;
 Timer SpawnBulletTimer = {SpawnBulletCooldown};
 /* #endregion */
 
-
-
-
 actor player({400, 250}, {0, 0}, 0, 1, "Assets/player.png");
+
+Sound SfxShoot;
+void player_init(){
+    SfxShoot = LoadSound("Assets/PlayerShoot.wav");
+}
 
 
 void shoot()
@@ -26,11 +33,9 @@ void shoot()
     PUPPET.path = "Assets/bullet.png";
     Bullets.push_back(PUPPET);
 
-
-    Sound SfxShoot = LoadSound("Assets/laserShoot.wav");
-    SetSoundPitch(SfxShoot,randf(0.5,1.5));
+    SetSoundPitch(SfxShoot,randf(0.8,1.2));
+    SetSoundVolume(SfxShoot,volume);
     PlaySound(SfxShoot);
-
 }
 
 

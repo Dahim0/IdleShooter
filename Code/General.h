@@ -14,12 +14,14 @@ using namespace std;
 
 //system
 extern int target_fps;
+extern float volume;
 extern float money;
 
 //player
 extern actor player;
 void player_update();
 void player_draw();
+void player_init();
 //bullets
 extern vector<actor> Bullets;
 extern float SpawnBulletCooldown;//seconds
@@ -49,6 +51,7 @@ extern int diffuclty;
 extern vector<enemie> enemies;
 void enemies_update();
 void enemies_draw();
+void enemies_init();
 void spawn_enemie(float diffuclty);
 void clean_up();
 
